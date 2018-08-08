@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>H5 拖放</title>
+</head>
+<style>
+.left {
+	display: inline-block;
+	vertical-align: top;
+}
+.left .container {
+	width: 400px;
+	height: 400px;
+	border: 1px solid #333;
+}
+.left .container .item {
+	width: 100px;
+	height: 100px;
+	border: 1px solid #DC143C;
+	margin: 10px;
+}
+.right {
+	width: 400px;
+	height: 400px;
+	border: 1px solid #333;
+	display: inline-block;
+	vertical-align: top;
+}
+.right .item {
+	width: 100px;
+	height: 100px;
+	border: 1px solid #DC143C;
+	margin: 10px; 
+}
+</style>
+<body>
+	<div class="left">
+		<div class="container" ondragover="allDrop(event)" ondrop="drop(event)"></div>
+	</div>
+	<div class="right" ondragover="allDrop(event)" ondrop="dropReturn(event)">
+		<div id="item1" class="item" draggable="true" ondragstart="drag(event)"></div>
+		<div id="item2" class="item" draggable="true" ondragstart="drag(event)"></div>
+		<div id="item3" class="item" draggable="true" ondragstart="drag(event)"></div>
+	</div>
+</body>
+</html>
+<script>
+	function drag(event) {
+		console.log('drag item1');
+		event.dataTransfer.setData("Div", event.target.id);
+	}
+
+	function allDrop(event) {
+		console.log('123');
+		// 避免浏览器对数据的默认处理
+		event.preventDefault();
+	}
+
+	function drop(event) {
+		// 避免浏览器对数据的默认处理
+		event.preventDefault();
+		let data = event.dataTransfer.getData("Div");
+		console.log(data);
+		event.target.appendChild(document.getElementById(data));
+
+	}
+
+	function dropReturn (event) {
+		// 避免浏览器对数据的默认处理
+		event.preventDefault();
+		let data = event.dataTransfer.getData("Div");
+		console.log(data);
+		event.target.appendChild(document.getElementById(data));
+	}
+</script>
